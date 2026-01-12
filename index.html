@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Creative IQ – Registration</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --pink: #c61aff;
+  --green: #35d000;
+  --black: #111;
+}
+
+/* RESET */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  min-height:100vh;
+  background: url("assets/bg image.png") center/cover no-repeat;
+  background-size: cover;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* FORM WRAPPER */
+.form-wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start; /* left aligned on desktop */
+  padding:4rem 6vw;
+}
+
+/* FORM */
+form {
+  max-width:420px;
+  width:100%;
+  padding: 0; /* no background */
+}
+
+/* TITLE */
+form h1 {
+  font-family:'Archivo Black', sans-serif;
+  font-size:clamp(2.2rem,4vw,3rem);
+  line-height:0.95;
+  margin-bottom:2rem;
+  color:#111; /* black for desktop */
+}
+
+form h1 span:first-child { color:var(--pink); }
+form h1 span:last-child { color:var(--green); }
+
+/* FIELD */
+.field {
+  margin-bottom:1.4rem;
+}
+
+label {
+  display:block;
+  font-size:0.7rem;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  font-weight:600;
+  margin-bottom:0.4rem;
+  color:#111; /* black for desktop */
+}
+
+input, select, textarea {
+  width:100%;
+  padding:0.9rem 0.6rem;
+  font-size:1rem;
+  border:none;
+  border-bottom:2px solid #111; /* black underline */
+  background:transparent;
+  outline:none;
+  font-family:inherit;
+  color:#111; /* black text for desktop */
+}
+
+textarea { resize:none; }
+
+input::placeholder,
+textarea::placeholder { color: rgba(0,0,0,0.5); }
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color:var(--green);
+}
+
+/* BUTTON */
+button {
+  margin-top:2rem;
+  padding:1rem 1.4rem;
+  font-family:'Archivo Black', sans-serif;
+  font-size:0.9rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  background:linear-gradient(90deg,var(--pink),var(--green));
+  border:none;
+  cursor:pointer;
+  color:#fff;
+  border-radius:12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 28px rgba(198,26,255,0.6), 0 12px 28px rgba(53,208,0,0.6);
+}
+
+/* FOOT NOTE */
+.note {
+  margin-top:1.2rem;
+  font-size:0.75rem;
+  font-weight:500;
+  color:#111; /* black for desktop */
+}
+
+/* =====================
+   MOBILE GLASS FORM
+   ===================== */
+@media (max-width: 900px) {
+  body {
+    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.05)), url("assets/bg image.png") center/cover no-repeat;
+    overflow-x: hidden;
+  }
+
+  .form-wrap {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width:95%;
+    max-width:400px;
+    z-index:2;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    max-height:90vh;
+    overflow-y:auto;
+    padding:1rem;
+  }
+
+  form {
+    width:100%;
+    background: rgba(0,0,0,0.38);
+    backdrop-filter: blur(22px) saturate(150%);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+    border-radius: 24px;
+    padding:2rem 1.5rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25), 0 0 25px rgba(198,26,255,0.4), 0 0 25px rgba(53,208,0,0.4);
+    border-left: 4px solid var(--pink);
+    border-top: 4px solid var(--green);
+    animation: floatHero 1s ease forwards;
+    color:#fff;
+  }
+
+  @keyframes floatHero {
+    0% { transform: translateY(60px) scale(0.95); opacity:0; }
+    70% { transform: translateY(-10px) scale(1.02); opacity:0.9; }
+    100% { transform: translateY(0) scale(1); opacity:1; }
+  }
+
+  form h1 { font-size:2rem; }
+
+  label { font-size:0.65rem; color:#fff; }
+
+  /* MOBILE FORM FIELDS WHITE */
+  input, textarea, select {
+    font-size:1rem;
+    padding:0.85rem 0.6rem;
+    color:#fff;
+    border-bottom:2px solid rgba(255,255,255,0.7);
+    background:transparent;
+  }
+  input::placeholder,
+  textarea::placeholder { color: rgba(255,255,255,0.7); }
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: rgba(255,255,255,0.1); /* subtle transparent */
+    color: #fff;
+    padding:0.85rem 1rem;
+    border-radius:6px;
+    border:2px solid #fff;
+  }
+  select option { background: rgba(0,0,0,0.7); color:#fff; }
+
+  input[type="file"] {
+    color:#fff;
+    border-bottom:2px solid rgba(255,255,255,0.7);
+    padding:0.5rem 0;
+  }
+  input[type="file"]::-webkit-file-upload-button {
+    background: var(--pink);
+    color:#fff;
+    border:none;
+    padding:0.5rem 1rem;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+  }
+  input[type="file"]::-moz-file-upload-button {
+    background: var(--pink);
+    color:#fff;
+    border:none;
+    padding:0.5rem 1rem;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+  }
+
+  button { width:100%; padding:1rem; border-radius:14px; }
+  .note { font-size:0.7rem; margin-top:1rem; text-align:left; color:#fff; }
+}
+</style>
+</head>
+
+<body>
+<div class="form-wrap">
+  <form action="https://formsubmit.co/officialdakeyed@gmail.com" method="POST" enctype="multipart/form-data">
+    <h1>
+      <span>Creative</span>
+      <span>IQ</span>
+    </h1>
+
+    <div class="field">
+      <label>Full Name</label>
+      <input type="text" placeholder="Your full name" name="Full Name" required>
+    </div>
+
+<div class="field">
+  <label>Country</label>
+  <select id="country" name="Country" required>
+    <option value="">Select Country</option>
+  </select>
+</div>
+
+<div class="field">
+  <label>State / Region</label>
+  <select id="state" name="State" required disabled>
+    <option value="">Select State</option>
+  </select>
+</div>
+
+
+    <div class="field">
+      <label>Upload Receipt of Payment</label>
+      <input type="file" accept="image/*,application/pdf" name="Receipt" required>
+    </div>
+
+    <div class="field">
+      <label>What you look forward to get from the class</label>
+      <textarea placeholder="Your expectations" name="Expectations" rows="3" required></textarea>
+    </div>
+
+    <div class="field">
+      <label>How did you know about the class?</label>
+      <select name="Referral" required>
+        <option value="">Select</option>
+        <option>Social Media</option>
+        <option>Friend/Referral</option>
+        <option>Email</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <!-- Formsubmit redirect to success -->
+    <input type="hidden" name="_next" value="success.html">
+    <input type="hidden" name="_captcha" value="false">
+
+    <button type="submit">Register Now</button>
+
+    <p class="note">
+      23rd–24th Jan · 7PM Daily · Closed Telegram Group
+    </p>
+  </form>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const countrySelect = document.getElementById("country");
+  const stateSelect   = document.getElementById("state");
+
+  /* === 195 COUNTRIES (KEEP AS IS) === */
+  const countries = [
+    "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina",
+    "Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados",
+    "Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana",
+    "Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon",
+    "Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo",
+    "Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica",
+    "Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia",
+    "Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana",
+    "Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary",
+    "Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan",
+    "Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon",
+    "Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi",
+    "Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico",
+    "Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar",
+    "Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria",
+    "North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Panama","Papua New Guinea",
+    "Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda",
+    "Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa",
+    "San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles",
+    "Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa",
+    "South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan",
+    "Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago",
+    "Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates",
+    "United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City",
+    "Venezuela","Vietnam","Yemen","Zambia","Zimbabwe","Palestine"
+  ];
+
+  countries.forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c;
+    opt.textContent = c;
+    countrySelect.appendChild(opt);
+  });
+
+  let statesData = [];
+
+  /* === LOAD ALL STATES / PROVINCES === */
+  fetch("https://cdn.jsdelivr.net/gh/dr5hn/countries-states-cities-database@master/states.json")
+    .then(res => res.json())
+    .then(data => statesData = data)
+    .catch(() => {
+      console.error("State data failed to load");
+    });
+
+  /* === COUNTRY → STATE LINK === */
+  countrySelect.addEventListener("change", () => {
+    const country = countrySelect.value;
+
+    stateSelect.innerHTML = `<option value="">Select State / Province</option>`;
+    stateSelect.disabled = true;
+
+    const matches = statesData.filter(
+      s => s.country_name === country
+    );
+
+    if (matches.length) {
+      matches.forEach(s => {
+        const opt = document.createElement("option");
+        opt.value = s.name;
+        opt.textContent = s.name;
+        stateSelect.appendChild(opt);
+      });
+      stateSelect.disabled = false;
+    }
+  });
+
+});
+</script>
+
+
+</body>
+</html>
