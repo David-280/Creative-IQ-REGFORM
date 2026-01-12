@@ -276,7 +276,7 @@ button:hover {
     </div>
 
   <!-- Formsubmit redirect to success -->
-<input type="hidden" name="_next" value="https://https://david-280.github.io/Creative-IQ-REGFORM/success.html">
+<input type="hidden" name="_next" value="https://david-280.github.io/Creative-IQ-REGFORM/success.html">
 <input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_template" value="table">
 
@@ -293,15 +293,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const countrySelect = document.getElementById("country");
   const stateSelect = document.getElementById("state");
 
-  let countriesData = [];
+  let countries = [];
 
-  // Load FULL countries + states database
-  fetch("https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries%2Bstates.json")
-    .then(res => res.json())
+  // ✅ GITHUB-PAGES SAFE CDN
+  const DATA_URL =
+    "https://cdn.jsdelivr.net/npm/countries-states-cities-database@1.0.0/countries%2Bstates.json";
+
+  fetch(DATA_URL)
+    .then(response => {
+      if (!response.ok) throw new Error("Network error");
+      return response.json();
+    })
     .then(data => {
-      countriesData = data;
+      countries = data;
 
-      // Populate countries (ALL 195)
+      // Populate ALL countries
       data.forEach(country => {
         const option = document.createElement("option");
         option.value = country.name;
@@ -310,19 +316,20 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     })
     .catch(err => {
-      console.error("Failed to load country/state data", err);
+      console.error("Country data failed to load:", err);
+      countrySelect.innerHTML =
+        `<option value="">Failed to load countries</option>`;
     });
 
-  // Handle country change
   countrySelect.addEventListener("change", () => {
-    const selectedCountry = countrySelect.value;
-
-    stateSelect.innerHTML = `<option value="">Select State / Province</option>`;
+    stateSelect.innerHTML =
+      `<option value="">Select State / Province</option>`;
     stateSelect.disabled = true;
 
+    const selectedCountry = countrySelect.value;
     if (!selectedCountry) return;
 
-    const country = countriesData.find(c => c.name === selectedCountry);
+    const country = countries.find(c => c.name === selectedCountry);
 
     if (country && country.states && country.states.length > 0) {
       country.states.forEach(state => {
@@ -333,7 +340,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       stateSelect.disabled = false;
     } else {
-      // Countries without states (Monaco, Vatican, etc.)
       const option = document.createElement("option");
       option.value = "N/A";
       option.textContent = "N/A";
@@ -346,7 +352,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
 </body>
 </html>
+
 
 
