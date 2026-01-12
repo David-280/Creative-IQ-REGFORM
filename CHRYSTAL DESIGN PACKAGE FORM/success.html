@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Registration Success – Creative IQ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --pink: #c61aff;
+  --green: #35d000;
+  --black: #111;
+  --white-glass: rgba(255,255,255,0.15);
+}
+
+/* RESET */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  background: url("assets/bg image.png") center/cover no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* GLASS PANEL */
+.success-wrap {
+  background: rgba(0,0,0,0.38);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
+  color: #fff;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.25),
+    0 0 25px rgba(198,26,255,0.4),
+    0 0 25px rgba(53,208,0,0.4);
+  border-left: 4px solid var(--pink);
+  border-top: 4px solid var(--green);
+  animation: floatIn 1s ease forwards;
+}
+
+@keyframes floatIn {
+  0% { transform: translateY(60px) scale(0.95); opacity:0; }
+  70% { transform: translateY(-10px) scale(1.02); opacity:0.9; }
+  100% { transform: translateY(0) scale(1); opacity:1; }
+}
+
+/* TITLE */
+.success-wrap h1 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 2.5rem;
+  line-height:1.1;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.success-wrap h1 span:first-child { color: var(--pink); }
+.success-wrap h1 span:last-child { color: var(--green); }
+
+/* MESSAGE */
+.success-wrap p {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.9);
+}
+
+/* BUTTON */
+.success-wrap a {
+  display:inline-block;
+  padding: 0.9rem 1.5rem;
+  background: linear-gradient(135deg, var(--pink), var(--green));
+  color: #fff;
+  font-family: 'Archivo Black', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(198,26,255,0.4), 0 6px 20px rgba(53,208,0,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.success-wrap a:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 28px rgba(198,26,255,0.6), 0 12px 28px rgba(53,208,0,0.6);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .success-wrap {
+    padding: 2rem 1.5rem;
+    width: 95%;
+  }
+  .success-wrap h1 {
+    font-size: 2rem;
+  }
+  .success-wrap p {
+    font-size: 0.95rem;
+  }
+  .success-wrap a {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+</style>
+</head>
+
+<body>
+  <div class="success-wrap">
+    <h1>
+      <span>Success</span> <span>!</span>
+    </h1>
+    <p>
+      Thank you for registering for the Creative IQ class! <br>
+      Your registration has been received successfully. Further details will be sent via WhatsApp.
+    </p>
+    <a href="index.html">Back to Registration</a>
+  </div>
+</body>
+</html>
