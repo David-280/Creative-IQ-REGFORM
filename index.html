@@ -288,47 +288,50 @@ button:hover {
     </p>
   </form>
 </div>
-  <script src="https://cdn.jsdelivr.net/npm/world-countries@latest/dist/countries.json"></script>
+  <script src="https://cdn.jsdelivr.net/npm/country-state-city@3.2.1/dist/country-state-city.min.js"></script>
+
 
 <script>
-const countrySelect = document.getElementById("country");
-const stateSelect = document.getElementById("state");
+document.addEventListener("DOMContentLoaded", () => {
+  const countrySelect = document.getElementById("country");
+  const stateSelect = document.getElementById("state");
 
-/* Populate ALL countries */
-countries.forEach(c => {
-  const opt = document.createElement("option");
-  opt.value = c.name.common;
-  opt.textContent = c.name.common;
-  countrySelect.appendChild(opt);
-});
+  // Load ALL countries
+  const countries = window.CSC.getAllCountries();
 
-/* Handle country change */
-countrySelect.addEventListener("change", () => {
-  stateSelect.innerHTML = `<option value="">Select State / Province</option>`;
-  stateSelect.disabled = true;
+  countries.forEach(c => {
+    const option = document.createElement("option");
+    option.value = c.isoCode;
+    option.textContent = c.name;
+    countrySelect.appendChild(option);
+  });
 
-  const selected = countrySelect.value;
-  if (!selected) return;
+  countrySelect.addEventListener("change", () => {
+    stateSelect.innerHTML =
+      `<option value="">Select State / Province</option>`;
+    stateSelect.disabled = true;
 
-  const country = countries.find(
-    c => c.name.common === selected
-  );
+    const countryCode = countrySelect.value;
+    if (!countryCode) return;
 
-  if (country && country.subdivisions && country.subdivisions.length) {
-    country.subdivisions.forEach(s => {
-      const opt = document.createElement("option");
-      opt.value = s.name;
-      opt.textContent = s.name;
-      stateSelect.appendChild(opt);
-    });
-    stateSelect.disabled = false;
-  } else {
-    const opt = document.createElement("option");
-    opt.value = "N/A";
-    opt.textContent = "N/A";
-    stateSelect.appendChild(opt);
-    stateSelect.disabled = false;
-  }
+    const states = window.CSC.getStatesOfCountry(countryCode);
+
+    if (states.length) {
+      states.forEach(s => {
+        const option = document.createElement("option");
+        option.value = s.name;
+        option.textContent = s.name;
+        stateSelect.appendChild(option);
+      });
+      stateSelect.disabled = false;
+    } else {
+      const option = document.createElement("option");
+      option.value = "N/A";
+      option.textContent = "N/A";
+      stateSelect.appendChild(option);
+      stateSelect.disabled = false;
+    }
+  });
 });
 </script>
 
@@ -336,8 +339,10 @@ countrySelect.addEventListener("change", () => {
 
 
 
+
 </body>
 </html>
+
 
 
 
