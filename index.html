@@ -290,82 +290,63 @@ button:hover {
 </div>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-
   const countrySelect = document.getElementById("country");
-  const stateSelect   = document.getElementById("state");
+  const stateSelect = document.getElementById("state");
 
-  /* === 195 COUNTRIES (KEEP AS IS) === */
-  const countries = [
-    "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina",
-    "Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados",
-    "Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana",
-    "Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon",
-    "Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo",
-    "Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica",
-    "Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia",
-    "Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana",
-    "Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary",
-    "Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan",
-    "Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon",
-    "Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi",
-    "Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico",
-    "Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar",
-    "Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria",
-    "North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Panama","Papua New Guinea",
-    "Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda",
-    "Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa",
-    "San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles",
-    "Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa",
-    "South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan",
-    "Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago",
-    "Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates",
-    "United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City",
-    "Venezuela","Vietnam","Yemen","Zambia","Zimbabwe","Palestine"
-  ];
+  let countriesData = [];
 
-  countries.forEach(c => {
-    const opt = document.createElement("option");
-    opt.value = c;
-    opt.textContent = c;
-    countrySelect.appendChild(opt);
-  });
-
-  let statesData = [];
-
-  /* === LOAD ALL STATES / PROVINCES === */
-  fetch("https://cdn.jsdelivr.net/gh/dr5hn/countries-states-cities-database@master/states.json")
+  // Load FULL countries + states database
+  fetch("https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries%2Bstates.json")
     .then(res => res.json())
-    .then(data => statesData = data)
-    .catch(() => {
-      console.error("State data failed to load");
+    .then(data => {
+      countriesData = data;
+
+      // Populate countries (ALL 195)
+      data.forEach(country => {
+        const option = document.createElement("option");
+        option.value = country.name;
+        option.textContent = country.name;
+        countrySelect.appendChild(option);
+      });
+    })
+    .catch(err => {
+      console.error("Failed to load country/state data", err);
     });
 
-  /* === COUNTRY → STATE LINK === */
+  // Handle country change
   countrySelect.addEventListener("change", () => {
-    const country = countrySelect.value;
+    const selectedCountry = countrySelect.value;
 
     stateSelect.innerHTML = `<option value="">Select State / Province</option>`;
     stateSelect.disabled = true;
 
-    const matches = statesData.filter(
-      s => s.country_name === country
-    );
+    if (!selectedCountry) return;
 
-    if (matches.length) {
-      matches.forEach(s => {
-        const opt = document.createElement("option");
-        opt.value = s.name;
-        opt.textContent = s.name;
-        stateSelect.appendChild(opt);
+    const country = countriesData.find(c => c.name === selectedCountry);
+
+    if (country && country.states && country.states.length > 0) {
+      country.states.forEach(state => {
+        const option = document.createElement("option");
+        option.value = state.name;
+        option.textContent = state.name;
+        stateSelect.appendChild(option);
       });
+      stateSelect.disabled = false;
+    } else {
+      // Countries without states (Monaco, Vatican, etc.)
+      const option = document.createElement("option");
+      option.value = "N/A";
+      option.textContent = "N/A";
+      stateSelect.appendChild(option);
       stateSelect.disabled = false;
     }
   });
-
 });
 </script>
 
 
+
 </body>
 </html>
+
 
